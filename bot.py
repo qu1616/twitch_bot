@@ -1,5 +1,6 @@
 import os
 from twitchio.ext import commands
+import random
 
 bot = commands.Bot(
     irc_token=os.environ['TMI_TOKEN'], 
@@ -8,6 +9,29 @@ bot = commands.Bot(
     prefix=os.environ['BOT_PREFIX'],
     initial_channels=[os.environ['CHANNEL']]
 )
+
+nouns = ("Actor", "Gold" , "Painting", "Advertisement", "Grass", "Parrot", "Afternoon", "Greece",  "Pencil", "Airport" ,"Guitar" ,"Piano", "Ambulance", "Hair", "Pillow",
+            "Animal", 	"Hamburger", 	"Pizza Answer", "Helicopter", "Planet Apple",	"Helmet", 	"Plastic", "Army", "Holiday",	"Honey", "Potato", "Balloon", "Horse", "Queen",
+        "Banana", "Hospital", "Quill", "Battery", "House" , "Rain", "Beach", "Hydrogen", "Rainbow", "Beard" , "Ice" , "Raincoat", "Bed", "Insect", 	"Refrigerator",
+        "Restaurant", "Boy", "Iron", "River", "Branch", "Island", "Rocket", "Breakfast" , "Room", "Brother", "Jelly" , "Rose")
+
+verbs = ("Accept", "Guess", "Achieve", 	"Harass", "Add", "Hate", "Admire", 	"Hear", "Admit" ,"Help","Adopt", "Hit","Advise", "Hope","Agree", "Identify",
+        "Allow", 	"Interrupt", "Announce", "Introduce","Appreciate", 	"Irritate","Approve", 	"Jump","Argue", 	"Keep","Arrive", 	"Kick",
+        "Ask", 	"Kiss","Assist", "Laugh","Attack", 	"Learn","Bake", "Leave","Bathe", "Lend","Be", "Lie","Beat", "Like","Become", "Listen",
+        "Beg", 	"Lose","Behave", 	"Love","Bet", 	"Make", "Boast", "Marry","Boil", "Measure","Borrow", "Meet","Breathe", 	"Move","Bring", "Murder",
+        "Build", "Obey","Burn", "Offend")
+
+adv = ( "almost", "deeply", "enough", "hardly", "fairly", "fully", "least", "most", "just", "nearly", "quite", "again", "usually", "sometimes", "often", "easily", 
+        "fondly", "gently", "mysteriously", "safely", "quietly", "well", "above", "into", "out", "upward", "now", "yet", "only", "daily", "later", "sometime")
+
+adj = ( "adorable","beautiful", "clean", "drab", "elegant", "fancy", "glamorous", "handsome", "long", "magnificent", "old-fashioned", "plain", "quaint", 
+        "sparkling", "ugliest", "unsightly", "wide-eyed", "red", "orange","yellow","green","blue","purple","gray","black","white", "alive","better","careful",
+        "clever","dead","easy","famous","gifted","helpful", "ancient", "brief", "late", "early", "cooing", "loud", "big", "little", "raspy", "breeze", "boiling", 
+        "damp", "dry", "few", "full", "substantial")
+
+
+
+
 
 #runs when the bot has connected to the chat
 @bot.event
@@ -33,22 +57,27 @@ async def event_message(ctx):
 async def lurk(ctx):
     await ctx.send('Thanks for the lurk! You are POG! Sit down, relax and have an AMAZING day!!')
 
-#lurk 
+#social command that provides links to my current social medias
 @bot.command(name="socials")
 async def socials(ctx):
     await ctx.send('Follow ProffesorLayto on Twitter: https://twitter.com/ProfessorLayto and Instagram: https://www.instagram.com/qu1616/ !')
 
-
+#shout out command to give other streamers in chat a shout out 
 @bot.command(name="so")
 async def so(ctx):
     so_name = ctx.content.split(' ')[1]
     await ctx.send('HEY EVERYONE!! Go follow @' + so_name + '! They are pretty POG if ya ask me.....CHECK EM OUT PLSSSSS!!!!')
 
+#donate command that provides the link to donations 
 @bot.command(name="donate")
 async def donate(ctx):
     await ctx.send('Donate to ProfessorLayto here: https://streamlabs.com/professorlayto/tip ! All donations go twoards the channel! Thank you so much!!!!')
 
-
+#phrase command, creates a random phrase with a noun, verb, adverb and adjective.
+@bot.command(name="phrase")
+async def phrase(ctx):
+    words = [nouns, verbs, adv, adj]
+    await ctx.send('Your phrase is: ' + '"'+ " ".join([random.choice(i) for i in words]) +'!"')
 
 
 
