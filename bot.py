@@ -29,7 +29,9 @@ adj = ( "adorable","beautiful", "clean", "drab", "elegant", "fancy", "glamorous"
         "clever","dead","easy","famous","gifted","helpful", "ancient", "brief", "late", "early", "cooing", "loud", "big", "little", "raspy", "breeze", "boiling", 
         "damp", "dry", "few", "full", "substantial")
 
+card_name = ("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Ace", "Jack", "Queen", "King")
 
+card_type = ("Clubs", "Diamonds", "Hearts", "Spades")
 
 
 
@@ -49,7 +51,7 @@ async def event_message(ctx):
     await bot.handle_commands(ctx)
 
     if any(word in ctx.content.lower() for word in ["hello", "hi", "hey"]):
-        await ctx.channel.send(f"Hey there, @{ctx.author.name}! Welcome to the stream! If you have any question, please ask the professor!")
+        await ctx.channel.send(f"Hey there, @{ctx.author.name}! Welcome to the stream! If you have any questions, please ask the professor!")
 
 
 #lurk command if lurking the stream 
@@ -78,6 +80,12 @@ async def donate(ctx):
 async def phrase(ctx):
     words = [nouns, verbs, adv, adj]
     await ctx.send('Your phrase is: ' + '"'+ " ".join([random.choice(i) for i in words]) +'!"')
+
+@bot.command(name="draw")
+async def draw(ctx):
+    names = [card_name]
+    types = [card_type]
+    await ctx.send('You drew the ' + " ".join([random.choice(i) for i in names]) + ' of ' + " ".join([random.choice(i) for i in types]) + '! Nice pick!')
 
 
 
