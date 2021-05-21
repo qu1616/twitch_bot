@@ -49,6 +49,9 @@ async def donate(ctx):
     await ctx.send('Donate to ProfessorLayto here: https://streamlabs.com/professorlayto/tip ! All donations go twoards the channel! Thank you so much!!!!')
 
 
+
+
+
 if __name__ == "__main__":
     print("we good brodie")
     bot.run()
