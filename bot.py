@@ -1,4 +1,5 @@
 import os
+import asyncio
 from twitchio.ext import commands
 import random
 
@@ -46,9 +47,10 @@ async def event_ready():
     print(f"{os.environ['BOT_NICK']} is online!")
     ws = bot._ws
     await ws.send_privmsg(os.environ['CHANNEL'],f"/me has arrived!")
+    
 
-
-#how the bot handles other messages besides its own 
+    
+#how the bot responds to other messages besides its own 
 @bot.event
 async def event_message(ctx):
     if ctx.author.name.lower() == os.environ['BOT_NICK'].lower():
@@ -56,8 +58,11 @@ async def event_message(ctx):
 
     await bot.handle_commands(ctx)
 
-    if any(word in ctx.content.lower() for word in ["hello", "hi", "hey"]):
-        await ctx.channel.send(f"Hey there, @{ctx.author.name}! Welcome to the stream! If you have any questions, please ask the professor!")
+    if any(word in ctx.content.lower() for word in ["cool", "nice", "sweet", "sick"]):
+        await ctx.channel.send(f"I agree! @{ctx.author.name}!")
+    
+    elif "fun fact" == ctx.content.lower():
+        await ctx.channel.send(f"Awesome fact @{ctx.author.name}!")
 
 
 #lurk command if lurking the stream 
@@ -67,9 +72,15 @@ async def lurk(ctx):
 
 
 #social command that provides links to my current social medias
+#after the initial command, the message will repeat every 30 minutes 
 @bot.command(name="socials")
 async def socials(ctx):
-    await ctx.send('Follow ProfessorLayto on Twitter: https://twitter.com/ProfessorLayto and Instagram: https://www.instagram.com/qu1616/ !')
+    #await ctx.send('Follow ProfessorLayto on Twitter: https://twitter.com/ProfessorLayto and Instagram: https://www.instagram.com/qu1616/ !')
+    chan = bot.get_channel("professorlayto")
+    loop = asyncio.get_event_loop()
+    while True:
+        await loop.create_task(chan.send("Be sure to follow ProfessorLayto on twitter! https://twitter.com/ProfessorLayto" ))
+        await asyncio.sleep(1800)
 
 
 #shout out command to give other streamers in chat a shout out 
