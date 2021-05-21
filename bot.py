@@ -63,7 +63,7 @@ async def event_message(ctx):
 #lurk command if lurking the stream 
 @bot.command(name="lurk")
 async def lurk(ctx):
-    await ctx.send('Thanks for the lurk! You are POG! Sit down, relax and have an AMAZING day!!')
+    await ctx.send(f"Thanks for the lurk @{ctx.author.name}! You are POG! Sit down, relax and have an AMAZING day!!")
 
 
 #social command that provides links to my current social medias
@@ -76,7 +76,7 @@ async def socials(ctx):
 @bot.command(name="so")
 async def so(ctx):
     so_name = ctx.content.split(' ')[1]
-    await ctx.send('HEY EVERYONE!! Go follow @' + so_name + '! They are pretty POG if ya ask me.....CHECK EM OUT PLSSSSS!!!!')
+    await ctx.send('HEY EVERYONE!! Go follow ' + so_name + '! They are pretty POG if ya ask me.....CHECK EM OUT PLSSSSS!!!!')
 
 
 #donate command that provides the link to donations 
@@ -97,7 +97,7 @@ async def phrase(ctx):
 async def draw(ctx):
     names = [card_name]
     types = [card_type]
-    await ctx.send('You drew the ' + " ".join([random.choice(i) for i in names]) + ' of ' + " ".join([random.choice(i) for i in types]) + '! Nice pick!')
+    await ctx.send("You drew the " + " ".join([random.choice(i) for i in names]) + " of " + " ".join([random.choice(i) for i in types]) + f"! Nice pick @{ctx.author.name}!")
 
 
 #text emote commands, randomly generates a text emote 
@@ -105,6 +105,13 @@ async def draw(ctx):
 async def temote(ctx): 
     emote = [text_emotes]
     await ctx.send(" ".join([random.choice(i) for i in emote]))
+
+
+#welcome command that welcomes a new user to the chat 
+@bot.command(name="welcome")
+async def welcome(ctx):
+    name = ctx.content.split(' ')[1]
+    await ctx.send('Everyone, welcome ' + name + ' to the class!')
 
 
 
