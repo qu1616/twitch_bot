@@ -39,6 +39,7 @@ card_type = ("Clubs", "Diamonds", "Hearts", "Spades")
 text_emotes = ("( ͡° ͜ʖ ͡°)", "¯\_(ツ)_/¯", "( ͡°( ͡° ͜ʖ( ͡° ͜ʖ ͡°)ʖ ͡°) ͡°)", "(▀̿Ĺ̯▀̿ ̿)", "༼ つ ◕_◕ ༽つ", "(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ ✧ﾟ･: *ヽ(◕ヮ◕ヽ)", "ರ_ರ", "(▰˘◡˘▰)", "(´・ω・)っ由", "☜(⌒▽⌒)☞", 
                 "｡◕‿‿◕｡", "(ง°ل͜°)ง", "(~˘▾˘)~", "(づ￣ ³￣)づ", "(ᵔᴥᵔ)", "| (• ◡•)| (❍ᴥ❍ʋ)", "[̲̅$̲̅(̲̅ ͡° ͜ʖ ͡°̲̅)̲̅$̲̅]", "[̲̅$̲̅(̲̅5̲̅)̲̅$̲̅]", "ʕ•ᴥ•ʔ", "☼.☼", "≧☉_☉≦", "(>ლ)")
 
+bot_phrase = ("Doing great!" , "Couldn't be better!", "FANTASTIC!", "Supercalifragilisticexpialidocious.", "We be good!", "Amazing!", "Living my best life!", "Coolio dude.")
 
 
 #runs when the bot has connected to the chat
@@ -61,8 +62,26 @@ async def event_message(ctx):
     if any(word in ctx.content.lower() for word in ["cool", "nice", "sweet", "sick"]):
         await ctx.channel.send(f"I agree! @{ctx.author.name}!")
     
-    elif "fun fact" == ctx.content.lower():
-        await ctx.channel.send(f"Awesome fact @{ctx.author.name}!")
+    elif 'hello' in ctx.content.lower():
+        await ctx.channel.send(f"Hi there, @{ctx.author.name}! How are you on this fine day?")
+
+    elif '@prof_apprentice' in ctx.content.lower():
+        await ctx.channel.send(f"What is it you need, @{ctx.author.name}?")
+
+    elif 'how are you' in ctx.content.lower():
+        phrases = [bot_phrase]
+        await ctx.channel.send(" ".join([random.choice(i) for i in phrases]) + " Thanks for asking!")
+
+    elif 'thanks' in ctx.content.lower():
+        await ctx.channel.send(f"You're very welcome, @{ctx.author.name}!")
+
+
+
+
+@bot.command(name = "welcome")
+async def welcome_message(ctx):
+    name = ctx.content.split(' ')[1]
+    await ctx.send("Welcome to the stream " + name + ", thanks for popping in! Grab a seat, relax and have fun!")
 
 
 #lurk command if lurking the stream 
@@ -116,13 +135,6 @@ async def draw(ctx):
 async def temote(ctx): 
     emote = [text_emotes]
     await ctx.send(" ".join([random.choice(i) for i in emote]))
-
-
-#welcome command that welcomes a new user to the chat 
-@bot.command(name="welcome")
-async def welcome(ctx):
-    name = ctx.content.split(' ')[1]
-    await ctx.send('Everyone, welcome ' + name + ' to the class!')
 
 
 
